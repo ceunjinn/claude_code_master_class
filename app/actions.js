@@ -8,7 +8,7 @@ export async function createPost(formData) {
   const content = formData.get("content")?.toString().trim() ?? "";
 
   if (title && content) {
-    addPost({ title, content });
+    await addPost({ title, content });
   }
 
   redirect("/");

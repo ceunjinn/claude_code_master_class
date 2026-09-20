@@ -13,8 +13,8 @@ function formatDate(isoString) {
   });
 }
 
-export default function Home() {
-  const posts = getPosts();
+export default async function Home() {
+  const posts = await getPosts();
 
   return (
     <main className="container">
@@ -35,7 +35,7 @@ export default function Home() {
             <article key={post.id} className="post-card">
               <div className="post-meta">
                 <span className="post-author">👤 {post.author}</span>
-                <span className="post-date">{formatDate(post.createdAt)}</span>
+                <span className="post-date">{formatDate(post.created_at)}</span>
               </div>
               <h2 className="post-title">{post.title}</h2>
               <p className="post-content">{post.content}</p>
