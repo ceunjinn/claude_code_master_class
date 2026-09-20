@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { getPosts } from "@/lib/posts";
+import { createComment } from "@/app/actions";
 
 export const dynamic = "force-dynamic";
 
@@ -39,6 +40,37 @@ export default async function Home() {
               </div>
               <h2 className="post-title">{post.title}</h2>
               <p className="post-content">{post.content}</p>
+
+              <div className="comments">
+                {post.comments.length > 0 && (
+                  <ul className="comment-list">
+                    {post.comments.map((comment) => (
+                      <li key={comment.id} className="comment-item">
+                        <div className="comment-meta">
+                          <span className="comment-author">👤 {comment.author}</span>
+                          <span className="comment-date">{formatDate(comment.created_at)}</span>
+                        </div>
+                        <p className="comment-content">{comment.content}</p>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+
+                <form action={createComment} className="comment-form">
+                  <input type="hidden" name="postId" value={post.id} />
+                  <input
+                    type="text"
+                    name="content"
+                    required
+                    maxLength={300}
+                    placeholder="익명으로 댓글을 남겨보세요"
+                    aria-label="댓글 내용"
+                  />
+                  <button type="submit" className="btn-secondary">
+                    등록
+                  </button>
+                </form>
+              </div>
             </article>
           ))
         )}
